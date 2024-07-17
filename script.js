@@ -1,4 +1,3 @@
-
 var book = ePub();
 var rendition;
 let chapters = []
@@ -71,9 +70,10 @@ function openBook(e) {
 
     rendition.on("keyup", keyListener);
     rendition.on("relocated", function (location) {
+        console.log({chapters});
         speechSynthesis.cancel()
         console.log(location.start.index);
-        chapters[location.start.index].forEach((paragraph) => {
+        chapters[location.start.index].forEach((paragraph, index) => {
             speak(paragraph.textContent)
         })
     });
@@ -95,22 +95,20 @@ function openBook(e) {
 }
 
 let voices
-window.speechSynthesis.onvoiceschanged = () =>{ 
+window.speechSynthesis.onvoiceschanged = () => {
     voices = window.speechSynthesis.getVoices()
-    console.log(voices);
-    console.warn('voices are ready')}
+}
 
 function speak(text) {
     // Create a SpeechSynthesisUtterance
     const utterance = new SpeechSynthesisUtterance(text);
+    utterance.addEventListener("end",(end) => {console.log(end);})
 
     // Select a voice
-    
-    
     utterance.voice = voices[0]; // Choose a specific voice
+    utterance.pitch = 1.3
+    utterance.rate = 1.5
     speechSynthesis.speak(utterance);
-    
-    
 
     // Speak the text
 }
