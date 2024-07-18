@@ -97,6 +97,8 @@ function openBook(e) {
 let voices
 window.speechSynthesis.onvoiceschanged = () => {
     voices = window.speechSynthesis.getVoices()
+    voices = voices.map((voice) => `<p>${voice.name}</p>`)
+    document.getElementById("voices").innerHTML = voices.join(" ")
 }
 
 function speak(text) {
