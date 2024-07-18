@@ -1,6 +1,8 @@
 var book = ePub();
 var rendition;
 let chapters = []
+let allVoices
+let voiceIndex
 
 var inputElement = document.getElementById("input");
 
@@ -94,11 +96,23 @@ function openBook(e) {
     document.addEventListener("keyup", keyListener, false);
 }
 
-let voices
+function selectVoice(event) {
+    let voiceName = event.target.value;
+    
+    voice = allVoices.findIndex((voice) => {
+        const result = voice.name == voiceName
+        return result
+    })
+    console.log(voice);
+}
+
+
 window.speechSynthesis.onvoiceschanged = () => {
-    voices = window.speechSynthesis.getVoices()
-    voices = voices.map((voice) => `<p>${voice.name}</p>`)
-    document.getElementById("voices").innerHTML = voices.join(" ")
+    allVoices = window.speechSynthesis.getVoices()
+    let voices = allVoices.map((voice) => `<option value="${voice.name}">${voice.name}</option>`)
+    
+    document.getElementById("voiceInput").innerHTML = voices.join(" ")
+    document.getElementById("voiceInput").addEventListener("change",selectVoice)
 }
 
 function speak(text) {
@@ -107,7 +121,7 @@ function speak(text) {
     utterance.addEventListener("end",(end) => {console.log(end);})
 
     // Select a voice
-    utterance.voice = voices[0]; // Choose a specific voice
+    utterance.voice = allVoices[voiceIndex]; // Choose a specific voice
     utterance.pitch = 1.3
     utterance.rate = 1.5
     speechSynthesis.speak(utterance);

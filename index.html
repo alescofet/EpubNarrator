@@ -1,21 +1,28 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
   <title>EPUB.js Input Example</title>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/epubjs@0.3.88/dist/epub.min.js"></script>
-
-
 </head>
+
 <body>
   <div id="title"><input type="file" accept="application/epub+zip" id="input"></div>
   <div id="viewer" class="spreads"></div>
-  <div id="voices"></div>
-  <a id="prev" href="#prev" class="arrow">‹</a>
-  <a id="next" href="#next" class="arrow">›</a>
+  <div id="controls">
+    <select name="Narrator voice" id="voiceInput">
+
+    </select>
+    <div id="buttons">
+      <a id="prev" href="#prev" class="arrow">‹</a>
+      <a id="next" href="#next" class="arrow">›</a>
+    </div>
+  </div>
   <script src="script.js"></script>
 </body>
+
 </html>
