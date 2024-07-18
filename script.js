@@ -123,7 +123,7 @@ function speak(text) {
     // Select a voice
     utterance.voice = allVoices[voiceIndex]; // Choose a specific voice
     utterance.pitch = 1
-    utterance.rate = 1
+    utterance.rate = 1.3
     speechSynthesis.speak(utterance);
 
     // Speak the text
